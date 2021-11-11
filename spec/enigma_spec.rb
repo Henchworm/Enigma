@@ -18,4 +18,11 @@ RSpec.describe Enigma do
     expect(enigma.key_generator.length).to eq(5)
     expect(range.include?(enigma.key_generator.length)).to eq(true)
   end
+
+  it "offset generator" do
+    enigma = Enigma.new
+    expect(enigma.offset_generator(Date.new(1995,8,4))).to eq(1025)
+    expect(enigma.offset_generator.to_s.length).to eq(4)
+  end
+
 end
