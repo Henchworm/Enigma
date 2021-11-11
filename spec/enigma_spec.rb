@@ -28,8 +28,9 @@ RSpec.describe Enigma do
 
   it "shift" do
     enigma = Enigma.new
-    expect(enigma.shift).to eq({})
-    expect(enigma.keys).to eq(["A","B","C","D"])
+    expect(enigma.shift([0,2,7,1,5],[1,0,2,5])).to eq(
+      {"A"=>3, "B"=>27, "C"=>73, "D"=>20})
+    expect(enigma.shift.keys).to eq(["A","B","C","D"])
   end
 
 end
