@@ -14,8 +14,9 @@ RSpec.describe Enigma do
   it "key generator" do
     enigma = Enigma.new
     range = Range.new(1,5)
-    expect(enigma.key_generator).to be_a(String)
+    expect(enigma.key_generator).to be_an(Array)
     expect(enigma.key_generator.length).to eq(5)
+    expect(enigma.key_generator.sample).to be_an(Integer)
     expect(range.include?(enigma.key_generator.length)).to eq(true)
   end
 
@@ -23,6 +24,12 @@ RSpec.describe Enigma do
     enigma = Enigma.new
     expect(enigma.offset_generator(Date.new(1995,8,4))).to eq(1025)
     expect(enigma.offset_generator.to_s.length).to eq(4)
+  end
+
+  it "shift" do
+    enigma = Enigma.new
+    expect(enigma.shift).to eq({})
+    expect(enigma.keys).to eq(["A","B","C","D"])
   end
 
 end

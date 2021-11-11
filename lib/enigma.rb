@@ -10,15 +10,28 @@ class Enigma
     lengths = (1..5).to_a
     key_array = []
     lengths.sample.times do
-      key_array << integers.sample.to_s
+      key_array << integers.sample
     end
-    key_array.join.rjust(5, "0")
+    until key_array.count == 5
+      key_array.unshift(0)
+    end
+    key_array
   end
 
   def offset_generator(date = Date.today)
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
-     square = (formatted.to_i ** 2).to_s.split("")
-     offset = square.last(4).join.to_i
+     square = (formatted ** 2).to_s.split("")
+     offset = square.last(4)
   end
+
+  def shift
+    key_generator
+    offset_generator
+    require "pry"; binding.pry
+  end
+
+
+
+
 
 end
