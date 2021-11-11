@@ -20,8 +20,11 @@ class Enigma
 
   def offset_generator(date = Date.today)
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
-     square = (formatted ** 2).to_s.split("")
-     offset = square.last(4)
+     square = (formatted.to_i ** 2).to_s.split("")
+     offset = square.last(4).map do |digit|
+       digit.to_i
+     end
+     offset
   end
 
   def shift
@@ -29,9 +32,4 @@ class Enigma
     offset_generator
     require "pry"; binding.pry
   end
-
-
-
-
-
 end

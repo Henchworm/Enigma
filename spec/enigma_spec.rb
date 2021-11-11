@@ -22,8 +22,8 @@ RSpec.describe Enigma do
 
   it "offset generator" do
     enigma = Enigma.new
-    expect(enigma.offset_generator(Date.new(1995,8,4))).to eq(1025)
-    expect(enigma.offset_generator.to_s.length).to eq(4)
+    expect(enigma.offset_generator(Date.new(1995,8,4))).to eq([1,0,2,5])
+    expect(enigma.offset_generator.length).to eq(4)
   end
 
   it "shift" do
