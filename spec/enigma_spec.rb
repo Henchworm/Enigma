@@ -44,10 +44,25 @@ RSpec.describe Enigma do
     expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
     expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
     expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
+    expect(enigma.encrypt("hello! world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder!sprrdx!", :key=>"02715"})
+    expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!?", :key=>"02715"})
+    expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohu!dx", :key=>"02715"})
+
+
+    # i dont know about the sprrdx expect -- will need to decrypt to be sure
+
 
     # expect(enigma.encrypt("hello world")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
     #need testing for other params: m, mk, md
   end
+
+  it "decrypt" do
+    enigma = Enigma.new
+    expect(enigma.decrypt("keder ohulw", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"hello world", :key=>"02715"})
+  end 
+
+
+
 
   it "hash_return" do
     enigma = Enigma.new
