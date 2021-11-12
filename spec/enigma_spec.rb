@@ -34,6 +34,6 @@ RSpec.describe Enigma do
 
   it "encrypt" do
     enigma = Enigma.new
-    expect(enigma.encrypt("hello world", "02715", "1025")).to eq("keder ohulw")
+    expect(enigma.encrypt("hello world", "02715", Date.new(1995,8,4))).to eq({:date=>"4895", :encryption=>"keder ohulw", :key=>"02715"})
   end
 end

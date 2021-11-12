@@ -28,9 +28,11 @@ class Enigma
     }
   end
 
-  def encrypt(message, key = key_generator, date = offset_generator)
+  def encrypt(message, key = key_generator, date)
+    #the date thing definitely needs to be updated. Ask instructor
+    formatted_date = offset_generator(date)
     encrypted = []
-    shift_hash = shift(key, date)
+    shift_hash = shift(key, formatted_date)
     message = message.downcase.strip.split("")
     message.each_with_index do |character, index|
       if index % 4 == 0
@@ -55,14 +57,10 @@ class Enigma
           encrypted << rotation_2[0]
       end
     end
-    encrypted.join
+    encryption_hash = {
+       'encryption': encrypted.join,
+       'key': key,
+       'date': date.strftime("%-d,%-m,%y").gsub(/,/, '')
+     }
   end
 end
-
-# encryption_hash = {
-#     'encryption' => encrypted.join,
-#     'key' => key.join,
-#     'date' => date.join
-#   }
-
-  
