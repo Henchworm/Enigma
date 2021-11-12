@@ -10,10 +10,16 @@ class Enigma
  end
 
   def offset_generator(date = Date.today)
+    if date.class == Date
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
      square = (formatted.to_i ** 2).to_s.split("")
      offset = square.last(4)
      offset.join
+   elsif date.class == String
+     square = (date.to_i ** 2).to_s.split("")
+     offset = square.last(4)
+     offset.join
+   end
   end
 
   def shift(randkey = key_generator, offset = offset_generator)
@@ -28,11 +34,9 @@ class Enigma
     }
   end
 
-  def encrypt(message, key = key_generator, date)
-    #the date thing definitely needs to be updated. Ask instructor
-    formatted_date = offset_generator(date)
+  def encrypt(message, key = key_generator, date = offset_generator)
     encrypted = []
-    shift_hash = shift(key, formatted_date)
+    shift_hash = shift(key, date)
     message = message.downcase.strip.split("")
     message.each_with_index do |character, index|
       if index % 4 == 0
@@ -60,7 +64,7 @@ class Enigma
     encryption_hash = {
        'encryption': encrypted.join,
        'key': key,
-       'date': date.strftime("%-d,%-m,%y").gsub(/,/, '')
+       'date': date
      }
   end
 end

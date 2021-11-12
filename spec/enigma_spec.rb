@@ -23,6 +23,7 @@ RSpec.describe Enigma do
     enigma = Enigma.new
     expect(enigma.offset_generator(Date.new(1995,8,4))).to eq("1025")
     expect(enigma.offset_generator.length).to eq(4)
+    expect(enigma.offset_generator("040895")).to eq("1025")
   end
 
   it "shift" do
@@ -34,6 +35,6 @@ RSpec.describe Enigma do
 
   it "encrypt" do
     enigma = Enigma.new
-    expect(enigma.encrypt("hello world", "02715", Date.new(1995,8,4))).to eq({:date=>"4895", :encryption=>"keder ohulw", :key=>"02715"})
+    expect(enigma.encrypt("hello world", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
   end
 end
