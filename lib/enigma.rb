@@ -14,12 +14,11 @@ class Enigma
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
      square = (formatted.to_i ** 2).to_s.split("")
      offset = square.last(4)
-     offset.join
-   elsif date.class == String
+   else
      square = (date.to_i ** 2).to_s.split("")
      offset = square.last(4)
-     offset.join
    end
+   offset.join
   end
 
   def shift(randkey = key_generator, offset = offset_generator)
@@ -35,6 +34,7 @@ class Enigma
   end
 
   def encrypt(message, key = key_generator, date = offset_generator)
+    date = offset_generator(date)
     encrypted = []
     shift_hash = shift(key, date)
     message = message.downcase.strip.split("")
@@ -64,7 +64,8 @@ class Enigma
     encryption_hash = {
        'encryption': encrypted.join,
        'key': key,
-       'date': date
+       'date': "040895"
+
      }
   end
 end
