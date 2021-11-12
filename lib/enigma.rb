@@ -12,18 +12,14 @@ class Enigma
   def offset_generator(date = Date.today)
     if date.class == Date
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
-     square = (formatted.to_i ** 2).to_s.split("")
-     offset = square.last(4)
+     (formatted.to_i ** 2).to_s.split("").last(4)
    else
-     square = (date.to_i ** 2).to_s.split("")
-     offset = square.last(4)
-   end
-   offset.join
+     (date.to_i ** 2).to_s.split("").last(4)
+    end.join
   end
 
   def shift(randkey = key_generator, offset = offset_generator)
-    format_key = randkey.split("")
-    format_key.map(&:to_i)
+    format_key = randkey.split("").map(&:to_i)
     keys_in_pairs = format_key.each_cons(2).map {|a| a.join.to_i}
     shift_hash = {
       "A" => (keys_in_pairs[0].to_i + offset[0].to_i),
@@ -60,12 +56,12 @@ class Enigma
         rotation_2 = rotation_1.rotate(shift_hash['D'])
           encrypted << rotation_2[0]
       end
+      #1st rotations can be broken into helper methods?
     end
     encryption_hash = {
        'encryption': encrypted.join,
        'key': key,
        'date': "040895"
-
      }
   end
 end
