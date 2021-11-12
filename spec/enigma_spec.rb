@@ -38,18 +38,23 @@ RSpec.describe Enigma do
     expect(enigma.first_rotation("b")).to eq(["b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "a"])
   end
 
-  it "specials_formatter" do
+  it "pop specials" do
     enigma = Enigma.new
-    expect(enigma.specials_formatter("hello! wor!ld!")).to eq( ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d", [["!5"], ["!10"], ["!13"]]])
+    expect(enigma.pop_specials("hello! wor!ld!")).to eq( ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d",])
+  end
+
+  it " specials_arrays" do
+    enigma = Enigma.new
+    expect(enigma.specials_arrays("he!ll?o! wor!ld!")).to eq( [["!2"], ["?5"], ["!7"], ["!12"], ["!15"]])
   end
 
   xit "encrypt" do
     #FAKE HARDCODED DATE
     enigma = Enigma.new
     # expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
-    # expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
+    expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
     # expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
-    expect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"!keder ohulw!", :key=>"02715"})
+    #xpect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"!keder ohulw!", :key=>"02715"})
     # expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!?", :key=>"02715"})
     #expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohu!dx", :key=>"02715"})
     #expect(enigma.encrypt("hello world", "02715")).to eq({:date=>"040895", :encryption=>"keder ohudx", :key=>"02715"})
