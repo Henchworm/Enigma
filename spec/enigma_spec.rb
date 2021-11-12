@@ -43,9 +43,16 @@ RSpec.describe Enigma do
     expect(enigma.pop_specials("hello! wor!ld!")).to eq( ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d",])
   end
 
-  it " specials_arrays" do
+  it "specials_arrays" do
     enigma = Enigma.new
     expect(enigma.specials_arrays("he!ll?o! wor!ld!")).to eq( [["!2"], ["?5"], ["!7"], ["!12"], ["!15"]])
+  end
+
+  it "insert_specials" do
+    enigma = Enigma.new
+    message = "hello world!"
+    encrypted = ["k","e","d","e","r"," ","o","h","u","l","w"]
+    expect(enigma.insert_specials(encrypted, message)).to eq("keder ohulw!")
   end
 
   it "encrypt" do
@@ -64,9 +71,6 @@ RSpec.describe Enigma do
   #   enigma = Enigma.new
   #   expect(enigma.decrypt("keder ohulw", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"hello world", :key=>"02715"})
   # end
-
-
-
 
   it "hash_return" do
     enigma = Enigma.new

@@ -9,6 +9,7 @@ class Enigma
   def key_generator
    rand(99999).to_s.rjust(5, '0')
   end
+  #generators to new class
 
   def offset_generator(date = Date.today)
     if date.class == Date
@@ -18,6 +19,7 @@ class Enigma
      (date.to_i ** 2).to_s.split("").last(4)
     end.join
   end
+  #generators to new class
 
   def shift(randkey = key_generator, offset = offset_generator)
     key_pairs = randkey.split("").map(&:to_i).each_cons(2).map {|a| a.join.to_i}
@@ -52,7 +54,6 @@ class Enigma
     encrypted.join
   end
 
-
   def first_rotation(character)
      @alphabet.rotate(alphabet.index(character))
   end
@@ -77,35 +78,6 @@ class Enigma
     hash_return(encrypted,key,date)
   end
 
-  # def decrypt(message, key = key_generator, date = offset_generator)
-  #   date = offset_generator(date) #need to deal with this
-  #   shift_hash = shift(key, date)
-  #   encrypted = []
-  #   specials_hash = Hash.new(0)
-  #   message.downcase.split("").each_with_index do |character, index|
-  #       if !@alphabet.include?(character)
-  #         specials_hash[character] = character.index
-  #         require "pry"; binding.pry
-  #       elsif index % 4 == 0
-  #         encrypted.push(backwards_rotation(character).rotate(shift_hash['A'])[0])
-  #       elsif index % 4 == 1
-  #         encrypted.push(backwards_rotation(character).rotate(shift_hash['B'])[0])
-  #       elsif index % 4 == 2
-  #         encrypted.push(backwards_rotation(character).rotate(shift_hash['C'])[0])
-  #       elsif index % 4 == 3
-  #         encrypted.push(backwards_rotation(character).rotate(shift_hash['D'])[0])
-  #       end
-  #     end
-  #   hash_return(encrypted,key,date)
-  # end
-
-  # def backwards_rotation(character)
-  # #it cant be aplhabet, it has to be the new array
-  #     index = (alphabet.index(character))
-  #     require "pry"; binding.pry
-  #    x = @alphabet.rotate(-index)
-  # end
-
   def hash_return(encrypted,key,date)
     encryption_hash = {
        'encryption': encrypted.join,
@@ -115,3 +87,31 @@ class Enigma
   end
 end
 
+
+# def decrypt(message, key = key_generator, date = offset_generator)
+#   date = offset_generator(date) #need to deal with this
+#   shift_hash = shift(key, date)
+#   encrypted = []
+#   message.downcase.split("").each_with_index do |character, index|
+#       if !@alphabet.include?(character)
+#         specials_hash[character] = character.index
+#         require "pry"; binding.pry
+#       elsif index % 4 == 0
+#         encrypted.push(backwards_rotation(character).rotate(shift_hash['A'])[0])
+#       elsif index % 4 == 1
+#         encrypted.push(backwards_rotation(character).rotate(shift_hash['B'])[0])
+#       elsif index % 4 == 2
+#         encrypted.push(backwards_rotation(character).rotate(shift_hash['C'])[0])
+#       elsif index % 4 == 3
+#         encrypted.push(backwards_rotation(character).rotate(shift_hash['D'])[0])
+#       end
+#     end
+#   hash_return(encrypted,key,date)
+# end
+
+# def backwards_rotation(character)
+# #it cant be aplhabet, it has to be the new array
+#     index = (alphabet.index(character))
+#     require "pry"; binding.pry
+#    x = @alphabet.rotate(-index)
+# end
