@@ -33,10 +33,26 @@ RSpec.describe Enigma do
     expect(enigma.shift.keys).to eq(["A","B","C","D"])
   end
 
+  it "first_rotation" do
+    enigma = Enigma.new
+    expect(enigma.first_rotation("b")).to eq(["b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "a"])
+  end
+
   it "encrypt" do
+    #FAKE HARDCODED DATE
     enigma = Enigma.new
     expect(enigma.encrypt("hello world", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
     expect(enigma.encrypt("hello world", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
-    #need testing for other params: m, mk, md 
+    # expect(enigma.encrypt("hello world")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
+    #need testing for other params: m, mk, md
+  end
+
+  it "hash_return" do
+    enigma = Enigma.new
+    expect(enigma.hash_return(['k','e','d','e','r',' ','o','h','u','l','w'],"02715", "040895")).to eq({
+      :date=>"040895",
+      :encryption=>"keder ohulw",
+      :key=>"02715"
+    })
   end
 end

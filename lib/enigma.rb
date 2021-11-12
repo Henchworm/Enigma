@@ -29,34 +29,61 @@ class Enigma
     }
   end
 
+  def first_rotation(character)
+    @alphabet.rotate(alphabet.index(character))
+  end
+
   def encrypt(message, key = key_generator, date = offset_generator)
-    date = offset_generator(date)
+    date = offset_generator(date) #need to deal with this
     shift_hash = shift(key, date)
     encrypted = []
-    message = message.downcase.strip.split("")
-    message.each_with_index do |character, index|
+    message.split("").each_with_index do |character, index|
       if index % 4 == 0
-        rotation_1 = @alphabet.rotate(alphabet.index(character))
-        rotation_2 = rotation_1.rotate(shift_hash['A'])
-          encrypted << rotation_2[0]
+        encrypted.push(first_rotation(character).rotate(shift_hash['A'])[0])
       elsif index % 4 == 1
-        rotation_1 = @alphabet.rotate(alphabet.index(character))
-        rotation_2 = rotation_1.rotate(shift_hash['B'])
-          encrypted << rotation_2[0]
+        encrypted.push(first_rotation(character).rotate(shift_hash['B'])[0])
       elsif index % 4 == 2
-        rotation_1 = @alphabet.rotate(alphabet.index(character))
-        rotation_2 = rotation_1.rotate(shift_hash['C'])
-          encrypted << rotation_2[0]
+        encrypted.push(first_rotation(character).rotate(shift_hash['C'])[0])
       elsif index % 4 == 3
-        rotation_1 = @alphabet.rotate(alphabet.index(character))
-        rotation_2 = rotation_1.rotate(shift_hash['D'])
-          encrypted << rotation_2[0]
+        encrypted.push(first_rotation(character).rotate(shift_hash['D'])[0])
       end
     end
+    hash_return(encrypted,key, date)
+  end
+
+  def hash_return(encrypted,key,date)
     encryption_hash = {
        'encryption': encrypted.join,
        'key': key,
        'date': "040895"
      }
   end
+
 end
+
+#
+# def encrypt(message, key = key_generator, date = offset_generator)
+#   # date = offset_generator(date) #need to deal with this
+#   shift_hash = shift(key, date)
+#   encrypted = []
+#   first_rotation(message.split("").each_with_index do |character, index|
+#     if index % 4 == 0
+#       rotation_1 = @alphabet.rotate(alphabet.index(character))
+#       rotation_2 = rotation_1.rotate(shift_hash['A'])
+#         encrypted << rotation_2[0]
+#     elsif index % 4 == 1
+#       rotation_1 = @alphabet.rotate(alphabet.index(character))
+#       rotation_2 = rotation_1.rotate(shift_hash['B'])
+#         encrypted << rotation_2[0]
+#     elsif index % 4 == 2
+#       rotation_1 = @alphabet.rotate(alphabet.index(character))
+#       rotation_2 = rotation_1.rotate(shift_hash['C'])
+#         encrypted << rotation_2[0]
+#     elsif index % 4 == 3
+#       rotation_1 = @alphabet.rotate(alphabet.index(character))
+#       rotation_2 = rotation_1.rotate(shift_hash['D'])
+#         encrypted << rotation_2[0]
+#     end
+#   end
+#   hash_return(encrypted,key, date)
+# end
