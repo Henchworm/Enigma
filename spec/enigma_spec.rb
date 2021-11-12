@@ -14,9 +14,8 @@ RSpec.describe Enigma do
   it "key generator" do
     enigma = Enigma.new
     range = Range.new(1,5)
-    expect(enigma.key_generator).to be_an(Array)
+    expect(enigma.key_generator).to be_a(String)
     expect(enigma.key_generator.length).to eq(5)
-    expect(enigma.key_generator.sample).to be_an(Integer)
     expect(range.include?(enigma.key_generator.length)).to eq(true)
   end
 
@@ -28,13 +27,13 @@ RSpec.describe Enigma do
 
   it "shift" do
     enigma = Enigma.new
-    expect(enigma.shift([0,2,7,1,5], "1025")).to eq(
+    expect(enigma.shift("02715", "1025")).to eq(
       {"A"=>3, "B"=>27, "C"=>73, "D"=>20})
     expect(enigma.shift.keys).to eq(["A","B","C","D"])
   end
 
   it "encrypt" do
     enigma = Enigma.new
-    expect(enigma.encrypt("hello world", [0,2,7,1,5], [1,0,2,5])).to eq("keder ohulw")
+    expect(enigma.encrypt("hello world", "02715", "1025")).to eq("keder ohulw")
   end
 end
