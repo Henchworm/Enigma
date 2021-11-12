@@ -45,18 +45,24 @@ class Enigma
     specials
   end
 
+  def insert_specials(encrypted, message)
+    specials_arrays(message).each do |char|
+      encrypted.insert(char[0][1..-1].to_i, char[0][0])
+    end
+    encrypted.join
+  end
+
 
   def first_rotation(character)
      @alphabet.rotate(alphabet.index(character))
   end
 
   def encrypt(message, key = key_generator, date = offset_generator)
+    special_array = specials_arrays(message)
     date = offset_generator(date) #need to deal with this
     shift_hash = shift(key, date)
     encrypted = []
-    # specials_array = specials_arrays(message)
-    message_array = pop_specials(message)
-    message_array.each_with_index do |character, index|
+    pop_specials(message).each_with_index do |character, index|
         if index % 4 == 0
           encrypted.push(first_rotation(character).rotate(shift_hash['A'])[0])
         elsif index % 4 == 1
@@ -67,6 +73,7 @@ class Enigma
           encrypted.push(first_rotation(character).rotate(shift_hash['D'])[0])
         end
     end
+    insert_specials(encrypted, message)
     hash_return(encrypted,key,date)
   end
 

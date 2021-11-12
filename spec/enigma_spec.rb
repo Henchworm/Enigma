@@ -48,19 +48,16 @@ RSpec.describe Enigma do
     expect(enigma.specials_arrays("he!ll?o! wor!ld!")).to eq( [["!2"], ["?5"], ["!7"], ["!12"], ["!15"]])
   end
 
-  xit "encrypt" do
+  it "encrypt" do
     #FAKE HARDCODED DATE
     enigma = Enigma.new
-    # expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
+    expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
     expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
-    # expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
-    #xpect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"!keder ohulw!", :key=>"02715"})
-    # expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!?", :key=>"02715"})
-    #expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohu!dx", :key=>"02715"})
-    #expect(enigma.encrypt("hello world", "02715")).to eq({:date=>"040895", :encryption=>"keder ohudx", :key=>"02715"})
-    #expect(enigma.encrypt("hello world",)).to eq({:date=>"040895", :encryption=>"keder ohudx", :key=>"02715"})
+    expect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"!keder ohulw!", :key=>"02715"})
+    expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!?", :key=>"02715"})
+    expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohu!lw", :key=>"02715"})
+    expect(enigma.encrypt("h!el?lo w!!!or?l^%$#62d", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"k!ed?er o!!!hu?l^%$#62w", :key=>"02715"})
     #no date + no date or key is encrypting but not yet sure how to test it.
-    # i dont know about the sprrdx expect -- will need to decrypt to be sure
   end
 
   # it "decrypt" do
