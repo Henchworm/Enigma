@@ -40,16 +40,16 @@ RSpec.describe Enigma do
 
   it "specials_formatter" do
     enigma = Enigma.new
-    expect(enigma.specials_formatter("hello! world!")).to eq(["h", "e", "l", "l", "o", :!, " ", "w", "o", "r", "l", "d", :!])
+    expect(enigma.specials_formatter("hello! wor!ld!")).to eq( ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d", [["!5"], ["!10"], ["!13"]]])
   end
 
-  it "encrypt" do
+  xit "encrypt" do
     #FAKE HARDCODED DATE
     enigma = Enigma.new
     # expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
     # expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
     # expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
-    expect(enigma.encrypt("hello! world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder! ohulw!", :key=>"02715"})
+    expect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"!keder ohulw!", :key=>"02715"})
     # expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!?", :key=>"02715"})
     #expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohu!dx", :key=>"02715"})
     #expect(enigma.encrypt("hello world", "02715")).to eq({:date=>"040895", :encryption=>"keder ohudx", :key=>"02715"})

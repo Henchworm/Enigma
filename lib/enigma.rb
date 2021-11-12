@@ -30,14 +30,17 @@ class Enigma
   end
 
   def specials_formatter(message)
-    formatted = message.split('').map do |char|
+    specials_array = []
+    formatted_array = []
+    message.downcase.split('').each_with_index do |char, index|
       if !@alphabet.include?(char)
-        char.to_sym
+        specials_array << (char + index.to_s).split
       elsif @alphabet.include?(char)
-        char
+        formatted_array << char
       end
     end
-    formatted
+    formatted_array << specials_array
+    #returns array of ['h','e','l','l','o', [[!8],[!7]]
   end
 
 
@@ -49,22 +52,17 @@ class Enigma
     date = offset_generator(date) #need to deal with this
     shift_hash = shift(key, date)
     encrypted = []
-    specials_formatter(message)
-    #scanner with hash to make k/v pair.
-    #OR iterate thru only the strings, ignoring symbols, convert back.
-    message.downcase.split("").each_with_index do |character, index|
-      if index % 4 == 0
-        encrypted.push(first_rotation(character).rotate(shift_hash['A'])[0])
-      elsif index % 4 == 1
-        encrypted.push(first_rotation(character).rotate(shift_hash['B'])[0])
-      elsif index % 4 == 2
-        encrypted.push(first_rotation(character).rotate(shift_hash['C'])[0])
-      elsif index % 4 == 3
-        encrypted.push(first_rotation(character).rotate(shift_hash['D'])[0])
-      end
-      end
-      # encrypted.insert(specials_hash.values[0], specials_hash.keys.to_s)
-
+    specials_formatter(message).each_with_index do |character, index|
+        if index % 4 == 0
+          encrypted.push(first_rotation(character).rotate(shift_hash['A'])[0])
+        elsif index % 4 == 1
+          encrypted.push(first_rotation(character).rotate(shift_hash['B'])[0])
+        elsif  index % 4 == 2
+          encrypted.push(first_rotation(character).rotate(shift_hash['C'])[0])
+        elsif index % 4 == 3
+          encrypted.push(first_rotation(character).rotate(shift_hash['D'])[0])
+        end
+    end
     hash_return(encrypted,key,date)
   end
 
