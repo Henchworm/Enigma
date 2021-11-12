@@ -10,7 +10,6 @@ class Enigma
    rand(99999).to_s.rjust(5, '0')
   end
   #generators to new class
-
   def offset_generator(date = Date.today)
     if date.class == Date
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
@@ -59,7 +58,6 @@ class Enigma
   end
 
   def encrypt(message, key = key_generator, date = offset_generator)
-    special_array = specials_arrays(message)
     date = offset_generator(date) #need to deal with this
     shift_hash = shift(key, date)
     encrypted = []
@@ -74,8 +72,7 @@ class Enigma
           encrypted.push(first_rotation(character).rotate(shift_hash['D'])[0])
         end
     end
-    insert_specials(encrypted, message)
-    hash_return(encrypted,key,date)
+    insert_specials(encrypted, message) && hash_return(encrypted,key,date)
   end
 
   def hash_return(encrypted,key,date)
