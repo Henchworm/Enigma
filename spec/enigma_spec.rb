@@ -41,8 +41,10 @@ RSpec.describe Enigma do
   it "encrypt" do
     #FAKE HARDCODED DATE
     enigma = Enigma.new
-    expect(enigma.encrypt("hello world", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
-    expect(enigma.encrypt("hello world", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
+    expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
+    expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
+    expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
+
     # expect(enigma.encrypt("hello world")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
     #need testing for other params: m, mk, md
   end
