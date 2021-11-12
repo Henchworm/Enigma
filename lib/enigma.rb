@@ -2,7 +2,7 @@ require 'date'
 class Enigma
   attr_reader :alphabet
   def initialize
-  @alphabet = ("a".."z").to_a << " "
+    @alphabet = ("a".."z").to_a << " "
   end
 
   def key_generator
@@ -17,8 +17,6 @@ class Enigma
     end
     key_array
   end
-
-
 
   def offset_generator(date = Date.today)
      formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
@@ -38,4 +36,39 @@ class Enigma
       "D" => (keys_in_pairs[3] + offset[3])
     }
   end
+
+  def encrypt(message, key = key_generator, date = offset_generator)
+    encrypted = []
+    shift_hash = shift(key, date)
+    message = message.downcase.strip.split("")
+    message.each_with_index do |character, index|
+      if index % 4 == 0
+        char_index = @alphabet.index(character)
+        rotation_1 = @alphabet.rotate(char_index)
+        rotation_2 = rotation_1.rotate(shift_hash['A'])
+          encrypted << rotation_2[0]
+      elsif index % 4 == 1
+        char_index = @alphabet.index(character)
+        rotation_1 = @alphabet.rotate(char_index)
+        rotation_2 = rotation_1.rotate(shift_hash['B'])
+          encrypted << rotation_2[0]
+      elsif index % 4 == 2
+        char_index = @alphabet.index(character)
+        rotation_1 = @alphabet.rotate(char_index)
+        rotation_2 = rotation_1.rotate(shift_hash['C'])
+          encrypted << rotation_2[0]
+      elsif index % 4 == 3
+        char_index = @alphabet.index(character)
+        rotation_1 = @alphabet.rotate(char_index)
+        rotation_2 = rotation_1.rotate(shift_hash['D'])
+          encrypted << rotation_2[0]
+      end
+    end
+    encrypted.join
+  end
 end
+# encryption_hash = {
+#     'encryption' => encrypted.join,
+#     'key' => key.join,
+#     'date' => date.join
+#   }

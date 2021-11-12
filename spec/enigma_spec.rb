@@ -33,4 +33,11 @@ RSpec.describe Enigma do
     expect(enigma.shift.keys).to eq(["A","B","C","D"])
   end
 
+  it "encrypt" do
+    enigma = Enigma.new
+    expect(enigma.encrypt("hello world", [0,2,7,1,5], [1,0,2,5])).to eq("keder ohulw")
+  end
+
+
+
 end
