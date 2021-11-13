@@ -101,4 +101,10 @@ RSpec.describe Enigma do
     expect(enigma.date_formatter(date_2)).to eq("040895")
   end
 
+
+  #to add:
+  #stubs for date.today
+  #maybe bring generators into new class
+  #dynamic date formatter 
+
 end

@@ -74,6 +74,9 @@ class Enigma
     insert_specials(encrypted, message) && hash_return_encrypt(encrypted,key,date)
   end
 
+  def argument_checker
+  end 
+
   def decrypt(message, key = key_generator, date = Date.today)
     offset = offset_generator(date)
     shift_hash = shift(key, offset)
