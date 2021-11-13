@@ -2,6 +2,7 @@
 require_relative './spec_helper'
 require './lib/enigma'
 RSpec.describe Enigma do
+
   it "exists" do
     enigma = Enigma.new
     expect(enigma).to be_an(Enigma)
@@ -57,7 +58,6 @@ RSpec.describe Enigma do
   end
 
   it "encrypt" do
-    #FAKE HARDCODED DATE
     enigma = Enigma.new
     expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
     expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
@@ -68,11 +68,6 @@ RSpec.describe Enigma do
     #no date + no date or key is encrypting but not yet sure how to test it.
   end
 
-  # it "decrypt" do
-  #   enigma = Enigma.new
-  #   expect(enigma.decrypt("keder ohulw", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"hello world", :key=>"02715"})
-  # end
-
   it "hash_return" do
     enigma = Enigma.new
     expect(enigma.hash_return(['k','e','d','e','r',' ','o','h','u','l','w'],"02715", "040895")).to eq({
@@ -81,4 +76,13 @@ RSpec.describe Enigma do
       :key=>"02715"
     })
   end
+
+  it "date_formatter" do
+    enigma = Enigma.new
+    date_1 = Date.new(1995,8,4)
+    date_2 = "040895"
+    expect(enigma.date_formatter(date_1)).to eq("040895")
+    expect(enigma.date_formatter(date_2)).to eq("040895")
+  end
+
 end
