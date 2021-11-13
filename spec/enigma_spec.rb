@@ -68,11 +68,27 @@ RSpec.describe Enigma do
     #no date + no date or key is encrypting but not yet sure how to test it.
   end
 
-  it "hash_return" do
+  it "decrypt" do
     enigma = Enigma.new
-    expect(enigma.hash_return(['k','e','d','e','r',' ','o','h','u','l','w'],"02715", "040895")).to eq({
+    expect(enigma.decrypt("keder ohulw!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :decryption=>"hello world!", :key=>"02715"})
+    expect(enigma.decrypt("k!ed?er o!!!hu?l^%$#62w", "02715", Date.new(1995,8,4))).to eq({:decryption=>"h!el?lo w!!!or?l^%$#62d", :key=>"02715", :date=>"040895"})
+
+  end
+
+  it "hash_return_encrypt" do
+    enigma = Enigma.new
+    expect(enigma.hash_return_encrypt(['k','e','d','e','r',' ','o','h','u','l','w'],"02715", "040895")).to eq({
       :date=>"040895",
       :encryption=>"keder ohulw",
+      :key=>"02715"
+    })
+  end
+
+  it "hash_return_decrypt" do
+    enigma = Enigma.new
+    expect(enigma.hash_return_decrypt(['k','e','d','e','r',' ','o','h','u','l','w'],"02715", "040895")).to eq({
+      :date=>"040895",
+      :decryption=>"keder ohulw",
       :key=>"02715"
     })
   end
