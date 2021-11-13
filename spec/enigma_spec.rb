@@ -59,12 +59,12 @@ RSpec.describe Enigma do
 
   it "encrypt" do
     enigma = Enigma.new
-    expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!", :key=>"02715"})
-    expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:date=>"040895", :encryption=>"keder ohulw", :key=>"02715"})
-    expect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"!keder ohulw!", :key=>"02715"})
-    expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohulw!?", :key=>"02715"})
-    expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"keder ohu!lw", :key=>"02715"})
-    expect(enigma.encrypt("h!el?lo w!!!or?l^%$#62d", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :encryption=>"k!ed?er o!!!hu?l^%$#62w", :key=>"02715"})
+    expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohulw!",  :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:encryption=> "keder ohulw", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:encryption=> "!keder ohulw!", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohulw!?", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohu!lw", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("h!el?lo w!!!or?l^%$#62d", "02715", Date.new(1995,8,4))).to eq({:encryption=>"k!ed?er o!!!hu?l^%$#62w", :key=>"02715", :date=>"040895"})
     #no date + no date or key is encrypting but not yet sure how to test it.
   end
 
