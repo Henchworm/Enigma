@@ -57,7 +57,7 @@ class Enigma
   end
 
   def encrypt(message, key = key_generator, date = Date.today)
-    offset = offset_generator(date) #need to deal with this
+    offset = offset_generator(date)
     shift_hash = shift(key, offset)
     encrypted = []
     pop_specials(message).each_with_index do |character, index|
@@ -71,12 +71,41 @@ class Enigma
           encrypted.push(first_rotation(character).rotate(shift_hash['D'])[0])
         end
     end
-    insert_specials(encrypted, message) && hash_return(encrypted,key,date)
+    insert_specials(encrypted, message) && hash_return_encrypt(encrypted,key,date)
   end
 
-  def hash_return(encrypted,key,date)
+  def argument_checker
+  end
+
+  def decrypt(message, key = key_generator, date = Date.today)
+    offset = offset_generator(date)
+    shift_hash = shift(key, offset)
+    decrypted = []
+    pop_specials(message).each_with_index do |character, index|
+        if index % 4 == 0
+          decrypted.push(first_rotation(character).rotate(-shift_hash['A'])[0])
+        elsif index % 4 == 1
+          decrypted.push(first_rotation(character).rotate(-shift_hash['B'])[0])
+        elsif  index % 4 == 2
+          decrypted.push(first_rotation(character).rotate(-shift_hash['C'])[0])
+        elsif index % 4 == 3
+          decrypted.push(first_rotation(character).rotate(-shift_hash['D'])[0])
+        end
+    end
+    insert_specials(decrypted, message) && hash_return_decrypt(decrypted,key,date)
+  end
+
+  def hash_return_encrypt(encrypted,key,date)
     encryption_hash = {
        'encryption': encrypted.join,
+       'key': key,
+       'date': date_formatter(date)
+     }
+  end
+
+  def hash_return_decrypt(decrypted,key,date)
+    encryption_hash = {
+       'decryption': decrypted.join,
        'key': key,
        'date': date_formatter(date)
      }
@@ -89,5 +118,4 @@ class Enigma
       date
     end
   end
-
 end
