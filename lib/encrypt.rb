@@ -9,7 +9,6 @@ message_file = File.read(unencrypted, chomp:true)
 File.open(encrypted, "w") do |file|
   print_message = enigma.encrypt(message_file)
     file.puts print_message[:encryption]
-    require "pry"; binding.pry
     puts "Created #{encrypted} with the key #{print_message[:key]} and date #{print_message[:date]}"
 end
 

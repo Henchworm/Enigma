@@ -75,7 +75,7 @@ class Enigma
   end
 
   def argument_checker
-  end 
+  end
 
   def decrypt(message, key = key_generator, date = Date.today)
     offset = offset_generator(date)
