@@ -1,6 +1,6 @@
 require 'date'
-require_relative './generator'
-require_relative './formatting'
+require_relative '../modules/generator'
+require_relative '../modules/formatting'
 class Enigma
   include Generator
   include Formatting
