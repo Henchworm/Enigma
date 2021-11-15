@@ -17,8 +17,7 @@ class Enigma
   end
 
   def encrypt(message, key = key_generator, date = Date.today)
-    offset = offset_generator(date)
-    shift_hash = shift(key, offset)
+    shift_hash = shift(key, offset_generator(date))
     encrypted = []
     pop_specials(message).each_with_index do |character, index|
         if index % 4 == 0
@@ -35,8 +34,7 @@ class Enigma
   end
 
   def decrypt(message, key, date)
-    offset = offset_generator(date)
-    shift_hash = shift(key, offset)
+    shift_hash = shift(key, offset_generator(date))
     decrypted = []
     pop_specials(message).each_with_index do |character, index|
         if index % 4 == 0
