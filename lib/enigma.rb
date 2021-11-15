@@ -1,3 +1,4 @@
+require 'date'
 require_relative '../modules/generator'
 require_relative '../modules/formatting'
 
