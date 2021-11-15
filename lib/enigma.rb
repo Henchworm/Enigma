@@ -1,11 +1,13 @@
 require 'date'
 require_relative '../modules/generator'
 require_relative '../modules/formatting'
+
 class Enigma
   include Generator
   include Formatting
   attr_reader :alphabet,
               :encrypted
+
   def initialize
     @alphabet = ("a".."z").to_a << " "
   end
@@ -32,7 +34,7 @@ class Enigma
     insert_specials(encrypted, message) && hash_return_encrypt(encrypted,key,date)
   end
 
-  def decrypt(message, key = key_generator, date = Date.today)
+  def decrypt(message, key, date)
     offset = offset_generator(date)
     shift_hash = shift(key, offset)
     decrypted = []

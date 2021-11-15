@@ -61,6 +61,7 @@ RSpec.describe Enigma do
     expect(enigma.insert_specials(encrypted, message)).to eq("keder ohulw!")
   end
 
+
   it "encrypt" do
     enigma = Enigma.new
     expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:encryption=> "keder ohulw", :key=>"02715", :date=>"040895"})
@@ -68,6 +69,8 @@ RSpec.describe Enigma do
 
     #no date + no date or key is encrypting but not yet sure how to test it.
   end
+
+
 
   it "encrypt with specials" do
     enigma = Enigma.new
@@ -115,7 +118,8 @@ RSpec.describe Enigma do
     expect(enigma.date_formatter(date_1)).to eq("040895")
     expect(enigma.date_formatter(date_2)).to eq("040895")
   end
+
   #to add:
-  #stubs for date.today
+  #stubs for date.today?
 
 end

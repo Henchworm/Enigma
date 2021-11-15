@@ -4,6 +4,7 @@ enigma = Enigma.new
 unencrypted = ARGV[0]
 encrypted = ARGV[1]
 
+
 message_file = File.read(unencrypted, chomp:true)
 
 File.open(encrypted, "w") do |file|
