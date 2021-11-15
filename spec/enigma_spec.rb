@@ -63,16 +63,28 @@ RSpec.describe Enigma do
 
   it "encrypt" do
     enigma = Enigma.new
-    expect(enigma.encrypt("hello world!", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohulw!",  :key=>"02715", :date=>"040895"})
     expect(enigma.encrypt("HELLO WORLD", "02715", "040895")).to eq({:encryption=> "keder ohulw", :key=>"02715", :date=>"040895"})
-    expect(enigma.encrypt("!hello world!", "02715", Date.new(1995,8,4))).to eq({:encryption=> "!keder ohulw!", :key=>"02715", :date=>"040895"})
-    expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohulw!?", :key=>"02715", :date=>"040895"})
-    expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohu!lw", :key=>"02715", :date=>"040895"})
-    expect(enigma.encrypt("h!el?lo w!!!or?l^%$#62d", "02715", Date.new(1995,8,4))).to eq({:encryption=>"k!ed?er o!!!hu?l^%$#62w", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("hello world", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohulw", :key=>"02715", :date=>"040895"})
+
     #no date + no date or key is encrypting but not yet sure how to test it.
   end
 
+  it "encrypt with specials" do
+    enigma = Enigma.new
+    expect(enigma.encrypt("hello world!", "02715", "040895")).to eq({:encryption=> "keder ohulw!",  :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("!hello world!", "02715", "040895")).to eq({:encryption=> "!keder ohulw!", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("hello world!?", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohulw!?", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("hello wor!ld", "02715", Date.new(1995,8,4))).to eq({:encryption=> "keder ohu!lw", :key=>"02715", :date=>"040895"})
+    expect(enigma.encrypt("h!el?lo w!!!or?l^%$#62d", "02715", Date.new(1995,8,4))).to eq({:encryption=>"k!ed?er o!!!hu?l^%$#62w", :key=>"02715", :date=>"040895"})
+  end
+
   it "decrypt" do
+    enigma = Enigma.new
+    expect(enigma.decrypt("KEDER OHULW", "02715", "040895")).to eq({:date=>"040895", :decryption=>"hello world", :key=>"02715"})
+    expect(enigma.decrypt("keder ohulw", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :decryption=>"hello world", :key=>"02715"})
+  end
+
+  it "decrypt with specials" do
     enigma = Enigma.new
     expect(enigma.decrypt("keder ohulw!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :decryption=>"hello world!", :key=>"02715"})
     expect(enigma.decrypt("k!ed?er o!!!hu?l^%$#62w", "02715", Date.new(1995,8,4))).to eq({:decryption=>"h!el?lo w!!!or?l^%$#62d", :key=>"02715", :date=>"040895"})
@@ -105,7 +117,5 @@ RSpec.describe Enigma do
   end
   #to add:
   #stubs for date.today
-  #maybe bring generators into module
-  #dynamic hash formatter
 
 end
