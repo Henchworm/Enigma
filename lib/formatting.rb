@@ -15,7 +15,7 @@ module Formatting
     end
     specials
   end
-
+  
   def insert_specials(encrypted, message)
     specials_arrays(message).each do |char|
       encrypted.insert(char[0][1..-1].to_i, char[0][0])
