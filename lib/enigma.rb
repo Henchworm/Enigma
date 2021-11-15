@@ -1,22 +1,11 @@
 require 'date'
+require_relative './Generator'
 class Enigma
+  include Generator
   attr_reader :alphabet,
               :encrypted
   def initialize
     @alphabet = ("a".."z").to_a << " "
-  end
-
-  def key_generator
-   rand(99999).to_s.rjust(5, '0')
-  end
-
-  def offset_generator(date = Date.today)
-    if date.class == Date
-     formatted = date.strftime("%-d,%-m,%y").gsub(/,/, '')
-     (formatted.to_i ** 2).to_s.split("").last(4)
-   else
-     (date.to_i ** 2).to_s.split("").last(4)
-    end.join
   end
 
   def shift(randkey = key_generator, offset = offset_generator)
@@ -74,8 +63,6 @@ class Enigma
     insert_specials(encrypted, message) && hash_return_encrypt(encrypted,key,date)
   end
 
-  def argument_checker
-  end
 
   def decrypt(message, key = key_generator, date = Date.today)
     offset = offset_generator(date)

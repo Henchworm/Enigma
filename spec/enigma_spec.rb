@@ -18,6 +18,7 @@ RSpec.describe Enigma do
     range = Range.new(1,5)
     expect(enigma.key_generator).to be_a(String)
     expect(enigma.key_generator.length).to eq(5)
+    expect(enigma.key_generator[0..4]).to be_a(String)
     expect(range.include?(enigma.key_generator.length)).to eq(true)
   end
 
@@ -25,6 +26,7 @@ RSpec.describe Enigma do
     enigma = Enigma.new
     expect(enigma.offset_generator(Date.new(1995,8,4))).to eq("1025")
     expect(enigma.offset_generator.length).to eq(4)
+    expect(enigma.key_generator[0..3]).to be_a(String)
     expect(enigma.offset_generator("040895")).to eq("1025")
   end
 
@@ -33,6 +35,8 @@ RSpec.describe Enigma do
     expect(enigma.shift("02715", "1025")).to eq(
       {"A"=>3, "B"=>27, "C"=>73, "D"=>20})
     expect(enigma.shift.keys).to eq(["A","B","C","D"])
+    expect(enigma.shift("02715", "1025").values).to eq([3, 27, 73, 20])
+
   end
 
   it "first_rotation" do
@@ -72,7 +76,6 @@ RSpec.describe Enigma do
     enigma = Enigma.new
     expect(enigma.decrypt("keder ohulw!", "02715", Date.new(1995,8,4))).to eq({:date=>"040895", :decryption=>"hello world!", :key=>"02715"})
     expect(enigma.decrypt("k!ed?er o!!!hu?l^%$#62w", "02715", Date.new(1995,8,4))).to eq({:decryption=>"h!el?lo w!!!or?l^%$#62d", :key=>"02715", :date=>"040895"})
-
   end
 
   it "hash_return_encrypt" do
@@ -100,11 +103,9 @@ RSpec.describe Enigma do
     expect(enigma.date_formatter(date_1)).to eq("040895")
     expect(enigma.date_formatter(date_2)).to eq("040895")
   end
-
-
   #to add:
   #stubs for date.today
-  #maybe bring generators into new class
-  #dynamic date formatter 
+  #maybe bring generators into module
+  #dynamic hash formatter
 
 end
