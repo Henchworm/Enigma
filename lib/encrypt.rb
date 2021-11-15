@@ -11,4 +11,3 @@ File.open(encrypted, "w") do |file|
     file.puts print_message[:encryption]
     puts "Created #{encrypted} with the key #{print_message[:key]} and date #{print_message[:date]}"
 end
-

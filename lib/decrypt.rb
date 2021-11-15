@@ -14,3 +14,4 @@ File.open(decrypted_file, "w") do |file|
 
     puts "Created #{decrypted_file} with the key #{key} and date #{date}"
 end
+
