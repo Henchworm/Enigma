@@ -118,8 +118,4 @@ RSpec.describe Enigma do
     expect(enigma.date_formatter(date_1)).to eq("040895")
     expect(enigma.date_formatter(date_2)).to eq("040895")
   end
-
-  #to add:
-  #stubs for date.today?
-
 end
